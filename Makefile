@@ -8,4 +8,3 @@ format:
 
 test:
 	npm run test
-
