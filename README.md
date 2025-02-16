@@ -17,9 +17,17 @@
 
 ## 使用方法
 
-1. `make build`コマンドを実行して、`/app`配下の`src`のTypeScriptファイルをもとに、`dist`フォルダにJavaScriptファイルを生成します。
+1. `make build`コマンドを実行して、`/app`配下の`src`のTypeScriptファイルをもとに、`dist`フォルダにJavaScriptファイルを生成し、コードのフォーマットとテストを行います。
     ```bash
     make build
     ```
 
-2. デバッグ対象のTypeScriptファイルを開いた状態で実行すると、同名のJavaScriptファイルが実行されます。
+2. Biomeを使用して、コードをフォーマットします。
+    ```bash
+    make format
+    ```
+
+3. Vitestを使用して、テストを実行します。
+    ```bash
+    make test
+    ```
