@@ -1,23 +1,24 @@
 {
-	"name": "ts-study",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "vitest run",
-		"build": "tsc",
-		"format": "npx @biomejs/biome check --write"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"typescript": "^5.7.3",
-		"vite": "^6.1.0",
-		"vitest": "^3.0.5"
-	},
-	"dependencies": {
-		"zod": "^3.24.2"
-	}
+  "name": "ts-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc",
+    "format": "npx @biomejs/biome check --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "msw": "^2.7.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  }
 }
