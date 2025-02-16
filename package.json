@@ -1,20 +1,21 @@
 {
-  "name": "ts-study",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "format": "npm run format && prettier --write ."
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^5.7.3"
-  },
-  "dependencies": {
-    "zod": "^3.24.2"
-  }
+	"name": "ts-study",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"format": "npx @biomejs/biome check --write"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"typescript": "^5.7.3"
+	},
+	"dependencies": {
+		"zod": "^3.24.2"
+	}
 }

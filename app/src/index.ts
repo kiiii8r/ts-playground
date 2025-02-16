@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const schema = z.object({
-  name: z.string(),
-  age: z.number(),
+	name: z.string(),
+	age: z.number(),
 });
 
 const data = { name: "Alice", age: 25 };
