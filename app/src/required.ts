@@ -10,6 +10,7 @@
 - ZodObjectで使用
 - ネストしたZodObjectには適用されない
 - ZodObjectスキーマのkeyには使用できない 
+- 未指定のプロパティの扱いはデフォルト同様
 */
 
 import { z } from "zod";
@@ -22,18 +23,19 @@ function validateTestData(testDataList: { data: any; titleLabel: string }[]) {
   console.log('');
   console.log('【実行結果】');
   for (const { data, titleLabel} of testDataList) {
-    try {
-      const parseSchema = schema.parse(data);
-      console.log(`○成功: ${titleLabel} -> ${JSON.stringify(data)} `);
-    } catch (e: unknown) {
-      if (e instanceof z.ZodError) {
-        console.error(`×失敗: ${titleLabel} -> ${JSON.stringify(data)} `);
-      } else {
-        console.error(`×失敗: ${titleLabel} -> ${JSON.stringify(data)} `);
+      try {
+          const parseSchema = schema.parse(data);
+          console.log(`○成功: ${titleLabel} IN: ${JSON.stringify(data)} -> OUT: ${JSON.stringify(parseSchema)} `);
+      } catch (e: unknown) {
+          if (e instanceof z.ZodError) {
+              console.error(`×失敗: ${titleLabel} IN: ${JSON.stringify(data)} -> OUT: ${JSON.stringify(e.name)} `);
+          } else {
+              console.error(`×失敗: ${titleLabel} IN: ${JSON.stringify(data)} -> OUT: ${JSON.stringify(e)} `);
+          }
       }
-    }
   }
 }
+
 
 
 // ネストなし
@@ -41,7 +43,8 @@ const testDataList = [
   { titleLabel: "全て", data: { id: "456", name: "Alice", age: 30 } },
   { titleLabel: "nameがない", data: { id: "456", age: 25 } },
   { titleLabel: "nameのみ", data: { name: "Bob" } },
-  { titleLabel: "idのみ", data: { id: "789" } }
+  { titleLabel: "idのみ", data: { id: "789" } },
+  { titleLabel: "未指定のプロパティを含む", data: { id: "456", name: "Alice", age: 30, newPropaty: "新規プロパティ" } },
 ];
 
 // ZodObjectからのみ各プロパティに適用可能
@@ -52,11 +55,11 @@ const testDataList = [
 // }).required(); // ここで使用
 
 // 変化なし
-// const schema = z.object({
-//     id: z.string(),   // id: string;
-//     name: z.string(), // name: string;
-//     age: z.number(),  // age: number;
-//   }).required();
+const schema = z.object({
+    id: z.string(),   // id: string;
+    name: z.string(), // name: string;
+    age: z.number(),  // age: number;
+  }).required();
 
 // 以下のObjectの要素は全てzodOptionalに設定しrequiredで検証
 
@@ -100,7 +103,7 @@ const testDataList = [
 //   }),
 // }).partial().required();
 
-// validateTestData(testDataList);
+validateTestData(testDataList);
 
 
 // ネストあり
@@ -149,25 +152,25 @@ const lineMessageDataList = [
   ・typeがimageの場合、originalContentUrlとpreviewImageUrlは必須
   ・typeがvideoの場合、originalContentUrlは必須
 */
-const schema = z.object({
-  type: z.enum(["text", "image", "video"]), // type: "text" | "image" | "video";
-  text: z.string(),                         // text?: string;
-  originalContentUrl: z.string().url(),     // originalContentUrl?: string;
-  previewImageUrl: z.string().url(),        // previewImageUrl?: string;
-  previewVideoUrl: z.string().url(),        // previewVideoUrl?: string;
-  }).partial().refine((data) => {
-      if (data.type === "text" && !data.text) {
-          return false;
-      }
-      if (data.type === "image" && (!data.originalContentUrl || !data.previewImageUrl)) {
-          return false;
-      }
-      if (data.type === "video" && (!data.originalContentUrl || !data.previewVideoUrl)) {
-          return false;
-      }
-          return true;
-  }, {
-      message: "必須プロパティが不足しています",
-});
+// const schema = z.object({
+//   type: z.enum(["text", "image", "video"]), // type: "text" | "image" | "video";
+//   text: z.string(),                         // text?: string;
+//   originalContentUrl: z.string().url(),     // originalContentUrl?: string;
+//   previewImageUrl: z.string().url(),        // previewImageUrl?: string;
+//   previewVideoUrl: z.string().url(),        // previewVideoUrl?: string;
+//   }).partial().refine((data) => {
+//       if (data.type === "text" && !data.text) {
+//           return false;
+//       }
+//       if (data.type === "image" && (!data.originalContentUrl || !data.previewImageUrl)) {
+//           return false;
+//       }
+//       if (data.type === "video" && (!data.originalContentUrl || !data.previewVideoUrl)) {
+//           return false;
+//       }
+//           return true;
+//   }, {
+//       message: "必須プロパティが不足しています",
+// });
 
-validateTestData(lineMessageDataList);
+// validateTestData(lineMessageDataList);
