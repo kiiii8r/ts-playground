@@ -77,11 +77,11 @@ const schema = z.object({
     ・名前　　※必須
     ・年齢　　※任意
 */
-// const schema = z.object({
-//   id: z.string(),   // id: string;
-//   name: z.string(), // name: string;
-//   age: z.number(),  // age?: number | undefined;
-// }).partial().required({ id: true, name: true });
+const schema = z.object({
+  id: z.string(),   // id: string;
+  name: z.string(), // name: string;
+  age: z.number(),  // age?: number | undefined;
+}).partial().required({ id: true, name: true });
 
 // 必須でないことを明示はできない
 // const schema = z.object({
@@ -152,25 +152,25 @@ const lineMessageDataList = [
   ・typeがimageの場合、originalContentUrlとpreviewImageUrlは必須
   ・typeがvideoの場合、originalContentUrlは必須
 */
-// const schema = z.object({
-//   type: z.enum(["text", "image", "video"]), // type: "text" | "image" | "video";
-//   text: z.string(),                         // text?: string;
-//   originalContentUrl: z.string().url(),     // originalContentUrl?: string;
-//   previewImageUrl: z.string().url(),        // previewImageUrl?: string;
-//   previewVideoUrl: z.string().url(),        // previewVideoUrl?: string;
-//   }).partial().refine((data) => {
-//       if (data.type === "text" && !data.text) {
-//           return false;
-//       }
-//       if (data.type === "image" && (!data.originalContentUrl || !data.previewImageUrl)) {
-//           return false;
-//       }
-//       if (data.type === "video" && (!data.originalContentUrl || !data.previewVideoUrl)) {
-//           return false;
-//       }
-//           return true;
-//   }, {
-//       message: "必須プロパティが不足しています",
-// });
+const schema = z.object({
+  type: z.enum(["text", "image", "video"]), // type: "text" | "image" | "video";
+  text: z.string(),                         // text?: string;
+  originalContentUrl: z.string().url(),     // originalContentUrl?: string;
+  previewImageUrl: z.string().url(),        // previewImageUrl?: string;
+  previewVideoUrl: z.string().url(),        // previewVideoUrl?: string;
+  }).partial().refine((data) => {
+      if (data.type === "text" && !data.text) {
+          return false;
+      }
+      if (data.type === "image" && (!data.originalContentUrl || !data.previewImageUrl)) {
+          return false;
+      }
+      if (data.type === "video" && (!data.originalContentUrl || !data.previewVideoUrl)) {
+          return false;
+      }
+          return true;
+  }, {
+      message: "必須プロパティが不足しています",
+});
 
 // validateTestData(lineMessageDataList);

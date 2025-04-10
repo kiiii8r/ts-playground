@@ -174,3 +174,19 @@ const testEnvDataList = [
 // );
 
 // validateTestData(testEnvDataList);
+
+
+const schema = z.record(
+    z.string(), // キーは文字列
+    z.number(), // 値は数値
+    z.string().min(3) // キーの長さは3以上
+  );
+  
+  const validData = { abc: 123, defg: 456 }; // キーの長さが3以上
+  const invalidData = { ab: 123, defg: 456 }; // キーの長さが3未満
+
+const parseSchema1 = schema.parse(validData); // 成功
+const parseSchema2 = schema.parse(invalidData); // エラー（キーが大文字を含むため）
+
+console.log(parseSchema1);
+console.log(parseSchema2);
