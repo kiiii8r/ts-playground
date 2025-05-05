@@ -63,18 +63,18 @@ const baseSchema = z.object({
     name: z.string()
 });
 
-const defaultSchema = z.object({
-    id: z.number().int().default(0),
-    name: z.string().default("デフォルト")
-})
-
 // const defaultSchema = z.object({
-//     id: z.number().int(),
-//     name: z.string()
-// }).default({
-//     id: 0,
-//     name: "デフォルト"
+//     id: z.number().int().default(0),
+//     name: z.string().default("デフォルト")
 // })
+
+const defaultSchema = z.object({
+    id: z.number().int(),
+    name: z.string()
+}).default({
+    id: 0,
+    name: "デフォルト"
+})
 
 const catchSchema = z.object({
     id: z.number().int().catch(9),
